@@ -83,7 +83,7 @@ function loadSingaporeMumbaiRoute() {
     waypoints = singaporeMumbaiRoute.map((entry) => entry.point);
     waypointNames = singaporeMumbaiRoute.map((entry) => entry.name);
     renderWaypointList();
-    drawRoute(false);
+    drawRoute(true);
     updateAllDisplays();
 }
 
@@ -180,8 +180,10 @@ function addWaypoint() {
         return;
     }
 
-    waypoints.push([lat, lng]);
-    waypointNames.push(`CUSTOM ${waypoints.length - 1}`);
+    const insertIndex = Math.max(1, waypoints.length - 1);
+    const customNumber = waypointNames.filter((name) => name.startsWith('CUSTOM')).length + 1;
+    waypoints.splice(insertIndex, 0, [lat, lng]);
+    waypointNames.splice(insertIndex, 0, `CUSTOM ${customNumber}`);
     input.value = '';
     renderWaypointList();
     drawRoute(false);
