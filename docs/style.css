@@ -1,0 +1,320 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #051612;
+    --panel: #091e1b;
+    --panel-2: #102b27;
+    --line: #2ee0a5;
+    --line-soft: rgba(46, 224, 165, 0.45);
+    --text: #dfffe9;
+    --muted: #9ce7c3;
+    --accent: #7ff7c1;
+    --danger: #ffad66;
+}
+
+body {
+    margin: 0;
+    background: #020b0a;
+    color: var(--text);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button, input {
+    font: inherit;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #020d0b 0%, #081d19 100%);
+}
+
+.mcdu {
+    width: 460px;
+    background: rgba(4, 12, 11, 0.95);
+    border-right: 3px solid var(--line);
+    box-shadow: inset -2px 0 26px rgba(46, 224, 165, 0.1);
+    padding: 16px 16px 10px;
+}
+
+.mcdu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 0 4px;
+}
+
+.brand-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mcdu-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+.mcdu-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.mcdu-mode {
+    color: var(--text);
+    background: rgba(46, 224, 165, 0.08);
+    border: 1px solid var(--line-soft);
+    padding: 5px 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.page-tabs {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.menu-btn {
+    background: rgba(17, 34, 31, 0.9);
+    border: 1px solid var(--line-soft);
+    color: var(--text);
+    padding: 8px 4px;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.menu-btn.active {
+    background: linear-gradient(180deg, rgba(36, 119, 94, 0.42), rgba(12, 32, 28, 0.9));
+    border-color: var(--line);
+    color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(46, 224, 165, 0.18);
+}
+
+#screen {
+    border: 2px solid var(--line);
+    background: rgba(5, 22, 17, 0.82);
+    padding: 14px 12px 12px;
+    min-height: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.page {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.page.active {
+    display: flex;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+    text-transform: uppercase;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--line-soft);
+}
+
+input {
+    width: 100%;
+    background: rgba(7, 23, 20, 0.95);
+    border: 1px solid var(--line-soft);
+    color: var(--text);
+    padding: 10px 10px;
+    border-radius: 4px;
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0 0 0 2px rgba(46, 224, 165, 0.18);
+    border-color: var(--line);
+}
+
+.button-stack {
+    display: grid;
+    gap: 8px;
+}
+
+.button-stack.compact {
+    margin-top: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 11px 12px;
+    background: linear-gradient(180deg, rgba(32, 70, 59, 0.95), rgba(15, 31, 28, 0.95));
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: transform 0.15s ease, filter 0.2s ease;
+}
+
+button:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+.divider {
+    height: 1px;
+    background: rgba(46, 224, 165, 0.35);
+    margin: 4px 0;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.data-grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 9px 8px;
+    border: 1px solid var(--line-soft);
+    background: rgba(9, 27, 23, 0.65);
+    min-height: 64px;
+}
+
+.data-grid span {
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.data-grid strong {
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.waypoint-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.waypoint-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 130px;
+    max-height: 220px;
+    overflow: auto;
+    padding-right: 4px;
+}
+
+.waypoint {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    background: rgba(11, 25, 22, 0.8);
+    border: 1px solid var(--line-soft);
+    padding: 8px 9px;
+    font-size: 0.74rem;
+}
+
+#map {
+    flex: 1;
+    min-height: 100vh;
+    background: #0b1214;
+}
+
+#map .map-briefing {
+    position: absolute;
+    z-index: 500;
+    top: 16px;
+    left: 54px;
+    max-width: min(440px, calc(100% - 80px));
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 11px 14px;
+    background: rgba(4, 17, 15, 0.92);
+    border: 1px solid var(--line-soft);
+    color: var(--text);
+    font-size: 0.76rem;
+    line-height: 1.4;
+    pointer-events: none;
+}
+
+#map .map-briefing strong {
+    color: #f2c96f;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+}
+
+#map .map-briefing small {
+    color: var(--muted);
+    font-size: 0.64rem;
+}
+
+.leaflet-container {
+    background: #0a1418;
+}
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .mcdu {
+        width: 100%;
+        border-right: none;
+        border-bottom: 3px solid var(--line);
+    }
+
+    #screen {
+        min-height: auto;
+    }
+
+    #map {
+        min-height: 50vh;
+    }
+}

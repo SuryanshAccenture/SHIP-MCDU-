@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ship MCDU Simulator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="style.css?v=20261005">
+</head>
+<body>
+<div class="container">
+    <aside class="mcdu">
+        <div class="mcdu-header">
+            <div class="brand-block">
+                <span class="mcdu-title">SHIP MCDU</span>
+                <span class="mcdu-sub">NAV / CONTROL</span>
+            </div>
+            <span class="mcdu-mode">ONLINE</span>
+        </div>
+
+        <nav class="page-tabs" aria-label="MCDU pages">
+            <button class="menu-btn active" data-page="fplan-page" onclick="showPage('fplan-page')">F-PLAN</button>
+            <button class="menu-btn" data-page="weight-page" onclick="showPage('weight-page')">WEIGHT</button>
+            <button class="menu-btn" data-page="fuel-page" onclick="showPage('fuel-page')">FUEL</button>
+            <button class="menu-btn" data-page="waypoint-page" onclick="showPage('waypoint-page')">WAYPOINT</button>
+            <button class="menu-btn" data-page="stats-page" onclick="showPage('stats-page')">SHIP STATS</button>
+        </nav>
+
+        <div id="screen">
+            <section id="fplan-page" class="page active">
+                <div class="row">
+                    <label for="fromPort">FROM</label>
+                    <input id="fromPort" value="SINGAPORE" placeholder="SINGAPORE">
+                </div>
+
+                <div class="row">
+                    <label for="toPort">TO</label>
+                    <input id="toPort" value="MUMBAI" placeholder="MUMBAI">
+                </div>
+
+                <div class="row two-col">
+                    <div>
+                        <label for="cruiseSpeed">CRZ SPD</label>
+                        <input id="cruiseSpeed" type="number" min="1" step="0.1" value="14">
+                    </div>
+                    <div>
+                        <label for="fuelFlow">FUEL FLOW (KG/H)</label>
+                        <input id="fuelFlow" type="number" min="1" step="50" value="1500">
+                    </div>
+                </div>
+
+                <div class="row two-col">
+                    <div>
+                        <label for="reserveFuel">RESERVE (KG)</label>
+                        <input id="reserveFuel" type="number" min="0" step="1000" value="30000">
+                    </div>
+                    <div>
+                        <label for="alternateFuel">ALTN (KG)</label>
+                        <input id="alternateFuel" type="number" min="0" step="1000" value="10000">
+                    </div>
+                </div>
+
+                <div class="button-stack compact">
+                    <button type="button" onclick="executeRoute()">EXEC ROUTE</button>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="data-grid compact-grid">
+                    <div>
+                        <span>ROUTE</span>
+                        <strong id="routeName">SIN-MUM</strong>
+                    </div>
+                    <div>
+                        <span>ETA</span>
+                        <strong id="etaValue">0.0 HRS</strong>
+                    </div>
+                    <div>
+                        <span>RANGE</span>
+                        <strong id="rangeValue">0 NM</strong>
+                    </div>
+                    <div>
+                        <span>SPD</span>
+                        <strong id="speedValue">18 KT</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section id="weight-page" class="page">
+                <div class="section-title">WEIGHT / DRAFT</div>
+
+                <div class="row two-col">
+                    <div>
+                        <label for="lightShip">LIGHT SHIP (T)</label>
+                        <input id="lightShip" type="number" value="24000">
+                    </div>
+                    <div>
+                        <label for="cargoWeight">CARGO (T)</label>
+                        <input id="cargoWeight" type="number" value="28000">
+                    </div>
+                </div>
+
+                <div class="row two-col">
+                    <div>
+                        <label for="ballast">BALLAST (T)</label>
+                        <input id="ballast" type="number" value="3500">
+                    </div>
+                    <div>
+                        <label for="fuelOnboard">FUEL ONBD (T)</label>
+                        <input id="fuelOnboard" type="number" value="450">
+                    </div>
+                </div>
+
+                <div class="data-grid">
+                    <div>
+                        <span>DISPL</span>
+                        <strong id="displacementValue">0 T</strong>
+                    </div>
+                    <div>
+                        <span>EST DRAFT</span>
+                        <strong id="draftValue">0.0 M</strong>
+                    </div>
+                    <div>
+                        <span>LOAD</span>
+                        <strong id="loadValue">0%</strong>
+                    </div>
+                    <div>
+                        <span>STAB</span>
+                        <strong id="stabilityValue">GOOD</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fuel-page" class="page">
+                <div class="section-title">FUEL MANAGEMENT</div>
+
+                <div class="row two-col">
+                    <div>
+                        <label for="fuelRemaining">FUEL REM (KG)</label>
+                        <input id="fuelRemaining" type="number" value="450000">
+                    </div>
+                    <div>
+                        <label for="burnRate">BURN RATE (KG/H)</label>
+                        <input id="burnRate" type="number" value="1500">
+                    </div>
+                </div>
+
+                <div class="row two-col">
+                    <div>
+                        <label for="reserveFuelPage">RESERVE (KG)</label>
+                        <input id="reserveFuelPage" type="number" value="30000">
+                    </div>
+                    <div>
+                        <label for="alternateFuelPage">ALTN (KG)</label>
+                        <input id="alternateFuelPage" type="number" value="10000">
+                    </div>
+                </div>
+
+                <div class="data-grid">
+                    <div>
+                        <span>TRIP FUEL</span>
+                        <strong id="tripFuelValue">0 KG</strong>
+                    </div>
+                    <div>
+                        <span>RTE FUEL</span>
+                        <strong id="routeFuelValue">0 KG</strong>
+                    </div>
+                    <div>
+                        <span>ENDUR</span>
+                        <strong id="enduranceValue">0 HRS</strong>
+                    </div>
+                    <div>
+                        <span>RESID</span>
+                        <strong id="residualValue">0 KG</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section id="waypoint-page" class="page">
+                <div class="section-title">WAYPOINTS</div>
+
+                <div class="row">
+                    <label for="waypointInput">LAT,LNG</label>
+                    <input id="waypointInput" placeholder="lat,lng">
+                </div>
+
+                <div class="button-stack compact">
+                    <button type="button" onclick="addWaypoint()">ADD WAYPOINT</button>
+                    <button type="button" class="secondary" onclick="loadSingaporeMumbaiRoute()">LOAD SIN-MUM SEA ROUTE</button>
+                </div>
+
+                <div class="waypoint-header">
+                    <span>LIST</span>
+                    <span id="waypointCount">0</span>
+                </div>
+                <div id="waypointList" class="waypoint-list"></div>
+            </section>
+
+            <section id="stats-page" class="page">
+                <div class="section-title">SHIP STATS</div>
+
+                <div class="data-grid stats-grid">
+                    <div>
+                        <span>TRIP</span>
+                        <strong id="statsTrip">0.0 NM</strong>
+                    </div>
+                    <div>
+                        <span>TIME</span>
+                        <strong id="statsTime">0.0 HRS</strong>
+                    </div>
+                    <div>
+                        <span>FUEL</span>
+                        <strong id="statsFuel">0 KG</strong>
+                    </div>
+                    <div>
+                        <span>SPD</span>
+                        <strong id="statsSpeed">14.0 KT</strong>
+                    </div>
+                    <div>
+                        <span>HDG</span>
+                        <strong id="statsHeading">000°</strong>
+                    </div>
+                    <div>
+                        <span>EST DRAFT</span>
+                        <strong id="statsDraft">0.0 M</strong>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </aside>
+
+    <main id="map" aria-label="Route map">
+        <div class="map-briefing">
+            <strong>PLANNED SEA CORRIDOR</strong>
+            <span>Singapore - Malacca Strait - Andaman Sea - Sri Lanka - Arabian Sea - Mumbai</span>
+            <small>Illustrative route plan; not live AIS, ENC, or navigational advice.</small>
+        </div>
+    </main>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
